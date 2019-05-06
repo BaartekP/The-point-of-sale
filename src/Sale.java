@@ -37,7 +37,7 @@ public class Sale {
 			p.set_barcode(scan.next());
 			
 			// Find the product
-			try {
+			try{
             File file = new File("products.txt");
             Scanner scan = new Scanner(file);
             
@@ -48,11 +48,17 @@ public class Sale {
             		String[] parts = x.split(";");
             		p.set_barcode(parts[0]);
             		p.set_name(parts[1]);
-            		p.set_price(Double.valueOf(parts[2]));
+            		try{
+            			double dbl = Double.valueOf(parts[2]);
+            			p.set_price(dbl);
+            		}catch(NumberFormatException ex){
+            			System.err.println("Error: " + ex.getMessage());
+            		}
+            		
             	}            	
             }            
 			}catch(Exception e){
-            //System.err.println("Error: " + e.getMessage());
+				System.err.println("Error: " + e.getMessage());
 			}
 			System.out.print(p.get_name()+"\t"+p.get_price());
 		
