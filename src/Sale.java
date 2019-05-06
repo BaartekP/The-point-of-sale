@@ -36,7 +36,7 @@ public class Sale {
             		System.out.println(x);
             		String[] parts = x.split(";");
             		for(int i = 0;i<parts.length;i++)
-            			p.set_product(i);
+            			p.set_product(i,parts[i]);
             			
             			
             	}

@@ -3,7 +3,8 @@ public class Products {
 
 	private String name;
 	private String barcode;
-	private float price;	
+	private float price;
+	
 	
 	//Get
 	public String get_name() {
@@ -24,6 +25,21 @@ public class Products {
 	}
 	public void set_price(float price) {
 		this.price = price;
+	}
+	public void set_product(int i,String s) {
+		switch (i) {
+		case 0:
+			set_barcode(s);
+			break;
+		case 1:
+			set_name(s);
+			break;
+		case 2:
+			set_price(Float.parseFloat(s));
+			break;
+		default:
+			break;
+		}
 	}
 	
 }
