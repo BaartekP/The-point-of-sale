@@ -1,15 +1,11 @@
 
 public class Products {
 
-	private int id;
 	private String name;
 	private String barcode;
 	private float price;	
 	
 	//Get
-	public int get_id(){
-		return this.id;
-	}
 	public String get_name() {
 		return this.name;
 	}
@@ -20,9 +16,6 @@ public class Products {
 		return this.price;
 	}
 	//Set
-	public void set_id(int id){
-		this.id = id;
-	}
 	public void set_name(String name) {
 		this.name = name;
 	}
