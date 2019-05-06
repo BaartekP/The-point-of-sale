@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
 
 public class Sale {
@@ -17,14 +18,36 @@ public class Sale {
 	public void set_summ(double summ) 				{this.summ = summ;}
 	
 	public void newSale() {
+		try{
+			
+			Products p = new Products();
+			
+			// wpisz kod
+			System.out.print("Barcode:");
+			p.set_barcode(scan.next());
+			
+			// znajdz produkt w pliku	
+            File file = new File("products.txt");
+            Scanner scan = new Scanner(file);
+            
+            while(scan.hasNextLine()) {
+            	String x = scan.next();
+            	if(x.contains(p.get_barcode())) {
+            		System.out.println(x);
+            		String[] parts = x.split(";");
+            		for(int i = 0;i<parts.length;i++)
+            			p.set_product(i);
+            			
+            			
+            	}
+            	
+            }
+            
+        }catch(Exception e){
+            System.err.println("Error: " + e.getMessage());
+        } 
 		
-		Products p = new Products();
 		
-		// wpisz kod
-		System.out.print("Barcode:");
-		p.set_barcode(scan.next());
-		
-		// znajdz produkt w pliku
 		// wczytaj dane
 		// dodaj do ogólnego zamówienia
 		// zlicz sume
