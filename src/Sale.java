@@ -27,7 +27,7 @@ public class Sale {
 	public void set_productList(List<Products> p) 	{this.productList=p;}
 	
 	public void newSale() {
-		try{
+		
 			
 			Products p = new Products();
 			List<Products> temp = new ArrayList<Products>();
@@ -36,7 +36,8 @@ public class Sale {
 			System.out.print("Barcode:");
 			p.set_barcode(scan.next());
 			
-			// znajdz produkt w pliku	
+			// znajdz produkt w pliku
+			try {
             File file = new File("products.txt");
             Scanner scan = new Scanner(file);
             
@@ -45,20 +46,15 @@ public class Sale {
             	if(x.contains(p.get_barcode())) {
             		//System.out.println(x);
             		String[] parts = x.split(";");
-            		for(int i = 0;i<parts.length;i++)
-            			p.set_product(i,parts[i]);
-            		System.out.print(parts[1]+"\t"+parts[2]);
-            			
-            	}
-            	
-            }
-            
-            
-            
-            
-        }catch(Exception e){
+            		p.set_barcode(parts[0]);
+            		p.set_name(parts[1]);
+            		set_summ(Double.valueOf(parts[2]));
+            	}            	
+            }            
+			}catch(Exception e){
             //System.err.println("Error: " + e.getMessage());
-        } 
+			}
+			System.out.print(p.get_name()+"\t"+p.get_price());
 		
 		
 		// wczytaj dane
