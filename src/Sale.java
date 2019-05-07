@@ -48,12 +48,7 @@ public class Sale {
             		String[] parts = x.split(";");
             		p.set_barcode(parts[0]);
             		p.set_name(parts[1]);
-            		try{
-            			double dbl = Double.valueOf(parts[2]);
-            			p.set_price(dbl);
-            		}catch(NumberFormatException ex){
-            			System.err.println("Error: " + ex.getMessage());
-            		}
+            		p.set_price(Double.valueOf(parts[2]));
             		
             	}            	
             }            
