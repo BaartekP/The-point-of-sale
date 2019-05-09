@@ -49,51 +49,53 @@ public class Sale {
 			
 			if(barcode.contains("Exit")) break;
 			else if(barcode.contains("Add")) add_product();
-			else p.set_barcode(barcode);
+			else {
 			
-			// Find the product
-			try{
-            File file = new File("products.txt");
-            Scanner scan1 = new Scanner(file);
-            
-            while(scan1.hasNextLine()) {
-            	String x = scan1.next();
-            	//System.out.println(x);
-            	if(x.contains(p.get_barcode())) {
-            		//System.out.println(x);
-            		String[] parts = x.split(";");
-            		p.set_barcode(parts[0]);
-            		p.set_name(parts[1]);
-            		p.set_price(Double.valueOf(parts[2]));
-            		
-            	}            	
-            }
-            scan1.close();
-			}catch(Exception e){
-				//System.err.println("Error: " + e.getMessage());
+				p.set_barcode(barcode);
+					
+				// Find the product
+				try{
+	            File file = new File("products.txt");
+	            Scanner scan1 = new Scanner(file);
+	            
+	            while(scan1.hasNextLine()) {
+	            	String x = scan1.next();
+	            	//System.out.println(x);
+	            	if(x.contains(p.get_barcode())) {
+	            		//System.out.println(x);
+	            		String[] parts = x.split(";");
+	            		p.set_barcode(parts[0]);
+	            		p.set_name(parts[1]);
+	            		p.set_price(Double.valueOf(parts[2]));
+	            		
+	            	}            	
+	            }
+	            scan1.close();
+				}catch(Exception e){
+					//System.err.println("Error: " + e.getMessage());
+				}
+				
+				temp.add(p);
+				
+				//String format
+				System.out.print(p.get_name()+""+p.get_price());
+				
+				System.out.print("\nQuantity: ");
+				set_amount(scan.nextDouble());
+				set_summ(get_summ()+temp.get(counter).get_price()*get_amount(counter));
+				counter++;
+				
+				//System.out.print("Continue[0] or Exit[1]?");
 			}
-			
-			temp.add(p);
-			
-			//String format
-			System.out.print(p.get_name()+""+p.get_price());
-			
-			System.out.print("\nQuantity: ");
-			set_amount(scan.nextDouble());
-			set_summ(get_summ()+temp.get(counter).get_price()*get_amount(counter));
-			counter++;
-			
-			//System.out.print("Continue[0] or Exit[1]?");
-			
-			}while(true);
-			
-			//System.out.print(get_amount(0));
-			
-			
-			
-			System.out.print("\nSumm: "+get_summ());
-			
-			scan.close();
+				}while(true);
+				
+				//System.out.print(get_amount(0));
+				
+				
+				
+				System.out.print("\nSumm: "+get_summ());
+				
+				scan.close();
 			
 			
 			//dodawanie nowych produktów
@@ -119,9 +121,9 @@ public class Sale {
             File file1 = new File("categories.txt");
             File file2 = new File("products.txt");
             
-            FileWriter fileWrite = new FileWriter("products.txt",true);
-            BufferedWriter bw = new BufferedWriter(fileWrite);
-            PrintWriter pw = new PrintWriter(bw);
+            FileWriter fileWrite = new FileWriter(file2,true);
+           // BufferedWriter bw = new BufferedWriter(fileWrite);
+           //PrintWriter pw = new PrintWriter(bw);
             
             Scanner scan1 = new Scanner(file1);
             Scanner scan2 = new Scanner(file2);
@@ -131,7 +133,7 @@ public class Sale {
             while(scan1.hasNextLine()) {
             	String x = scan1.next(); 
             	String[] parts = x.split(";");
-            	System.out.println(parts[0]+""+parts[1]);
+            	System.out.println(parts[0]+"\t"+parts[1]);
             }
             }catch (Exception e) {
 				// TODO: handle exception
@@ -157,9 +159,12 @@ public class Sale {
     		i++;
     		if(i<10) a = "0"+i;
     		else a = String.valueOf(i);
-    		String product = category+a+";"+name+";"+price;
-    		pw.write(product);
+    		String product = "\n"+category+a+";"+name+";"+price;
+    		//nie wpisuje :(
+    		fileWrite.write(product);
+    		fileWrite.close();
     		System.out.println("Added "+name);
+    		
     		scan2.close();
     		scan1.close();
     		fileWrite.close();

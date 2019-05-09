@@ -29,3 +29,5 @@ Barcode;Name;Price
 0902;Serwetki;4.99
 0903;Kubki;3.59
 0904;Œwieczki;6.99
+0805;Paluszki;2,49
+0905;Papierosy;16
