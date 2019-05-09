@@ -31,11 +31,17 @@ public class Sale {
 	public void newSale() {	
 		
 			this.amount = new Vector<Double>();
-			Products p = new Products();
 			List<Products> temp = new ArrayList<Products>();
+			//int choice = 0;
+			int counter =0;
+			
+			do {
+			Products p = new Products();
 			
 			System.out.print("Barcode:");
-			p.set_barcode(scan.next());
+			String barcode = scan.next();
+			if(barcode.contains("exit")) break;
+			else p.set_barcode(barcode);
 			
 			// Find the product
 			try{
@@ -44,6 +50,7 @@ public class Sale {
             
             while(scan1.hasNextLine()) {
             	String x = scan1.next();
+            	//System.out.println(x);
             	if(x.contains(p.get_barcode())) {
             		//System.out.println(x);
             		String[] parts = x.split(";");
@@ -64,12 +71,23 @@ public class Sale {
 			
 			System.out.print("\nQuantity: ");
 			set_amount(scan.nextDouble());
+			set_summ(get_summ()+temp.get(counter).get_price()*get_amount(counter));
+			counter++;
+			
+			//System.out.print("Continue[0] or Exit[1]?");
+			
+			}while(true);
 			
 			//System.out.print(get_amount(0));
-			set_summ(get_summ()+temp.get(0).get_price()*get_amount(0));
+			
+			
+			
 			System.out.print("\nSumm: "+get_summ());
 			
 			scan.close();
-				
+			
+			
+			//dodawanie nowych produktów
+			//logowanie przez salesman
 	}	
 }
