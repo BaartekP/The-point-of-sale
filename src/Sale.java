@@ -40,6 +40,9 @@ public class Sale {
 			
 			System.out.print("Barcode:");
 			String barcode = scan.next();
+			barcode = barcode.replace(barcode.substring(0, 1), 
+									  barcode.substring(0, 1).toUpperCase());
+			
 			if(barcode.contains("exit")) break;
 			else p.set_barcode(barcode);
 			
@@ -67,7 +70,7 @@ public class Sale {
 			
 			temp.add(p);
 			
-			System.out.print(p.get_name()+"\t"+p.get_price());
+			System.out.print(p.get_name()+"\t\t"+p.get_price());
 			
 			System.out.print("\nQuantity: ");
 			set_amount(scan.nextDouble());
