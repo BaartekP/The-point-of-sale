@@ -1,7 +1,5 @@
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.List;
@@ -21,6 +19,7 @@ public class Sale {
 	//Get
 	public int get_sale_id() 				{return this.sale_id;}
 	public double get_amount(int i)			{return this.amount.get(i);}
+	public Vector<Double> get_amount()		{return this.amount;}
 	public int get_salesman_id() 			{return this.salesman_id;}
 	public double get_summ() 				{return this.summ;}
 	public List<Products> get_productList() {return this.productList;}
@@ -35,7 +34,7 @@ public class Sale {
 	public void newSale() {	
 		
 			this.amount = new Vector<Double>();
-			List<Products> temp = new ArrayList<Products>();
+			List<Products> list = new ArrayList<Products>();
 			//int choice = 0;
 			int counter =0;
 			
@@ -75,14 +74,14 @@ public class Sale {
 					//System.err.println("Error: " + e.getMessage());
 				}
 				
-				temp.add(p);
+				list.add(p);
 				
 				//String format
-				System.out.print(p.get_name()+""+p.get_price());
+				System.out.print(p.get_name()+"\t"+p.get_price());
 				
 				System.out.print("\nQuantity: ");
 				set_amount(scan.nextDouble());
-				set_summ(get_summ()+temp.get(counter).get_price()*get_amount(counter));
+				set_summ(get_summ()+list.get(counter).get_price()*get_amount(counter));
 				counter++;
 				
 				//System.out.print("Continue[0] or Exit[1]?");
@@ -91,8 +90,10 @@ public class Sale {
 				
 				//System.out.print(get_amount(0));
 				
+				//Podsumowanie
 				
-				
+				summary(list,get_amount());
+
 				System.out.print("\nSumm: "+get_summ());
 				
 				scan.close();
@@ -102,11 +103,17 @@ public class Sale {
 			//logowanie przez salesman
 	}	
 	
-	public void add_product(String name, String price, String category) {
+	public void summary(List<Products> list, Vector<Double> amount) {
 		
-		
+		System.out.println("Summary:");
+		int counter = 0;
+		for(Products p : list)
+			System.out.println(String.format("%1$"+10 +"s",p.get_name()
+					+"\t"+amount.get(counter++)+"\t"+p.get_price()));
+			
 		
 	}
+	
 	public void add_product() {
 		
 		String name="", price="";
@@ -133,7 +140,7 @@ public class Sale {
             while(scan1.hasNextLine()) {
             	String x = scan1.next(); 
             	String[] parts = x.split(";");
-            	System.out.println(parts[0]+"\t"+parts[1]);
+            	System.out.println(String.format("%1$"+20 +"s",parts[0]+" "+parts[1]));
             }
             }catch (Exception e) {
 				// TODO: handle exception
@@ -180,5 +187,6 @@ public class Sale {
 		
 		
 	}
+	
 	
 }
