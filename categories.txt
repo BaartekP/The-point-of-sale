@@ -1,0 +1,10 @@
+Kategoria;Baza
+Owoce_i_warzywa;01
+Nabia³;02
+Miêso;03
+Napoje;04
+Makaron;05
+Zupa;06
+Pieczywo;07
+Przek¹ski;08
+Akcesoria;09

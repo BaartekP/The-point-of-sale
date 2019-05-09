@@ -1,8 +1,12 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.List;
 import java.util.ArrayList;
+
 
 public class Sale {
 	
@@ -43,7 +47,8 @@ public class Sale {
 			barcode = barcode.replace(barcode.substring(0, 1), 
 									  barcode.substring(0, 1).toUpperCase());
 			
-			if(barcode.contains("exit")) break;
+			if(barcode.contains("Exit")) break;
+			else if(barcode.contains("Add")) add_product();
 			else p.set_barcode(barcode);
 			
 			// Find the product
@@ -70,7 +75,8 @@ public class Sale {
 			
 			temp.add(p);
 			
-			System.out.print(p.get_name()+"\t\t"+p.get_price());
+			//String format
+			System.out.print(p.get_name()+""+p.get_price());
 			
 			System.out.print("\nQuantity: ");
 			set_amount(scan.nextDouble());
@@ -93,4 +99,81 @@ public class Sale {
 			//dodawanie nowych produktów
 			//logowanie przez salesman
 	}	
+	
+	public void add_product(String name, String price, String category) {
+		
+		
+		
+	}
+	public void add_product() {
+		
+		String name="", price="";
+		String category = "";
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Name and Price");
+		name = scan.next();
+		price = scan.next();
+		
+		try{
+            File file1 = new File("categories.txt");
+            File file2 = new File("products.txt");
+            
+            FileWriter fileWrite = new FileWriter("products.txt",true);
+            BufferedWriter bw = new BufferedWriter(fileWrite);
+            PrintWriter pw = new PrintWriter(bw);
+            
+            Scanner scan1 = new Scanner(file1);
+            Scanner scan2 = new Scanner(file2);
+            
+            //fileWrite.write(x);
+            try {
+            while(scan1.hasNextLine()) {
+            	String x = scan1.next(); 
+            	String[] parts = x.split(";");
+            	System.out.println(parts[0]+""+parts[1]);
+            }
+            }catch (Exception e) {
+				// TODO: handle exception
+			}
+            
+            System.out.print("Category barcode: ");
+    		category = scan.next();
+    		
+    		int i=0;
+    		String a = "";
+    		
+    		try {
+    		while(scan2.hasNextLine()) {
+            	String x = scan2.next();
+    			if(x.contains(category)) {
+            		//System.out.println(x);
+            		i++;           		
+            	}    			
+            }
+    		}catch (Exception e) {
+				// TODO: handle exception
+			}
+    		i++;
+    		if(i<10) a = "0"+i;
+    		else a = String.valueOf(i);
+    		String product = category+a+";"+name+";"+price;
+    		pw.write(product);
+    		System.out.println("Added "+name);
+    		scan2.close();
+    		scan1.close();
+    		fileWrite.close();
+    		
+    		
+            
+            //scan1.close();
+			}catch(Exception e){
+				//System.err.println("Error: " + e.getMessage());
+			}
+		
+		
+		
+		
+	}
+	
 }
